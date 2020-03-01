@@ -1,6 +1,6 @@
 # Country check app
 
-Find basic informations about selected country.
+Find basic informations about selected country using REST Countries API.
 
 #### Demo
 

@@ -16,6 +16,7 @@ export default class App extends Component {
       currency: [],
       nativeName: [],
       population: 0,
+      language: [],
    
       error: null
     };
@@ -53,7 +54,7 @@ export default class App extends Component {
           <table>
             <tr>
               <th>Name</th>
-              <td>{this.state.name} - {this.state.nativeName}</td>
+              <td>{this.state.name} ({this.state.nativeName})</td>
             </tr>
             <tr>
               <th>Capital</th>
@@ -66,6 +67,10 @@ export default class App extends Component {
             <tr>
               <th>Population</th>
               <td>{this.convertPopulation(this.state.population)}</td>
+            </tr>
+            <tr>
+              <th>Language</th>
+              <td>{this.state.language} ({this.state.nativeLang})</td>
             </tr>
          
           </table>
@@ -98,7 +103,8 @@ export default class App extends Component {
           currency: result[0].currencies[0].name,
           nativeName: result[0].nativeName,
           population: result[0].population,
-    
+          language: result[0].languages[0].name,
+          nativeLang: result[0].languages[0].nativeName,
           error: null
         });
       })

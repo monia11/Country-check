@@ -15,15 +15,28 @@ export default class App extends Component {
       flag: [],
       currency: [],
       nativeName: [],
-
+      population: 0,
+   
       error: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.convertPopulation = this.convertPopulation.bind(this);
   }
 
   handleChange(e) {
     this.setState({ countryInput: e.target.value });
+  }
+
+  convertPopulation(population){
+    if(population >=1000000){
+      return `${(population/1000000).toFixed(2)} mln`
+    } else if (population < 1000000 && population >= 1000){
+      return `${(population/1000).toFixed(2)} tys.`
+    } else {
+      return population
+    }
+
   }
 
   displayResults() {
@@ -36,16 +49,31 @@ export default class App extends Component {
     } else {
       return (
         <div>
-          <div className="info_container">
-            <div>
-              Name: {this.state.name} - {this.state.nativeName}
-            </div>
+          <div className="info_container" >
+          <table>
+            <tr>
+              <th>Name</th>
+              <td>{this.state.name} - {this.state.nativeName}</td>
+            </tr>
+            <tr>
+              <th>Capital</th>
+              <td>{this.state.capital}</td>
+            </tr>
+            <tr>
+              <th>Currency</th>
+              <td>{this.state.currency}</td>
+            </tr>
+            <tr>
+              <th>Population</th>
+              <td>{this.convertPopulation(this.state.population)}</td>
+            </tr>
+         
+          </table>
 
-            <div>Capital: {this.state.capital}</div>
-            <div>Currency: {this.state.currency}</div>
           </div>
+         
           <div className="flag_container">
-            <div>National flag</div>
+            <h4>National flag</h4>
             <img className="flag" alt="flag" src={this.state.flag} />
           </div>
         </div>
@@ -69,6 +97,8 @@ export default class App extends Component {
           countryOutput: result,
           currency: result[0].currencies[0].name,
           nativeName: result[0].nativeName,
+          population: result[0].population,
+    
           error: null
         });
       })
